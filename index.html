@@ -7,6 +7,25 @@
   <body>
     <div id="g_id_onload" data-client_id="778830160053-0i0n3v53abp3k3eedfnvve4u9k6u1mov.apps.googleusercontent.com" data-callback="onSignIn"></div>
     <div class="g_id_signin" data-type="standard"></div>
+    <button id="boto-sortir" style="display:none;" onclick="signout()"></button>
+    <h2 id="missatge-benvinguda" style="display:none;">missatge de benvinguda</h2>
+    <script>
+      function onSignIn(response) {
+        var id_token = response.credential;
+        console.log("ID token: " + id_token);
+        const dades = JSON.parse(decodeURIComponent(escape(atob(
+            id_token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/')))));
+        var missatgeH2 = document.getElementById('missatge-benvinguda');
+        missatgeH2.innerText = "Benvingut/da, " + dades.name;
+        missatgeH2.style.display = 'block';
+        document.getElementById('boto-sortir').style.display = 'block';
+        document.querySelector('.g_id_signin').style.display = 'none';
+      }
+      function signout() {
+        document.getElementById('missatge-benvinguda').style.display = 'none';
+        document.getElementById('boto-sortir').style.display = 'none';
+        document.querySelector('.g_id_signin').style.display = 'block';
+    </script>
   </body>
 </html>
 
